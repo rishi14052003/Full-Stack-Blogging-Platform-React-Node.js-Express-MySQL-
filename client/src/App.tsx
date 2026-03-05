@@ -15,9 +15,9 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-white dark:bg-gray-900">
+          <div className="min-h-screen bg-white dark:bg-gray-900 w-full overflow-x-hidden">
             <Navbar />
-            <main>
+            <main className="w-full">
               <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/explore" element={<BlogFeedPage />} />

@@ -6,8 +6,8 @@ export const mockUsers: User[] = [
     name: "Sarah Johnson",
     email: "sarah@example.com",
     avatar:
-      "https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff",
-    bio: "Full-stack developer and tech writer",
+      "https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff&bold=true",
+    bio: "Full-stack developer and tech writer. I write about React, TypeScript, and building great products.",
     role: "user",
   },
   {
@@ -15,8 +15,8 @@ export const mockUsers: User[] = [
     name: "Michael Chen",
     email: "michael@example.com",
     avatar:
-      "https://ui-avatars.com/api/?name=Michael+Chen&background=10b981&color=fff",
-    bio: "UX designer and creative thinker",
+      "https://ui-avatars.com/api/?name=Michael+Chen&background=10b981&color=fff&bold=true",
+    bio: "UX designer and creative thinker. Passionate about design systems and accessible interfaces.",
     role: "user",
   },
   {
@@ -24,16 +24,25 @@ export const mockUsers: User[] = [
     name: "Emily Davis",
     email: "emily@example.com",
     avatar:
-      "https://ui-avatars.com/api/?name=Emily+Davis&background=f59e0b&color=fff",
-    bio: "Data scientist and AI enthusiast",
+      "https://ui-avatars.com/api/?name=Emily+Davis&background=f59e0b&color=fff&bold=true",
+    bio: "Data scientist and AI enthusiast. Turning complex ideas into clear, actionable insights.",
     role: "user",
   },
   {
     id: "4",
+    name: "Raj Patel",
+    email: "raj@example.com",
+    avatar:
+      "https://ui-avatars.com/api/?name=Raj+Patel&background=8b5cf6&color=fff&bold=true",
+    bio: "Backend engineer obsessed with performance, distributed systems, and clean architecture.",
+    role: "user",
+  },
+  {
+    id: "5",
     name: "Admin User",
     email: "admin@example.com",
     avatar:
-      "https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff",
+      "https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff&bold=true",
     bio: "Platform administrator",
     role: "admin",
   },
@@ -43,7 +52,7 @@ export const mockComments: Comment[] = [
   {
     id: "1",
     content:
-      "Great article! This really helped me understand the concept better.",
+      "This is exactly what I needed. The section on memoization cleared up a lot of confusion for me — great breakdown!",
     author: mockUsers[1],
     createdAt: new Date("2024-01-15T10:30:00"),
     postId: "1",
@@ -51,17 +60,42 @@ export const mockComments: Comment[] = [
   {
     id: "2",
     content:
-      "I have been using this approach for a while and it works wonders. Thanks for sharing!",
+      "I've been using this approach for a while and it works wonders. Especially the part about server state — React Query is a game-changer.",
     author: mockUsers[2],
     createdAt: new Date("2024-01-15T14:20:00"),
     postId: "1",
   },
   {
     id: "3",
-    content: "Would love to see a follow-up article on advanced techniques.",
+    content:
+      "Would love to see a follow-up article on advanced techniques like concurrent rendering and Suspense boundaries.",
     author: mockUsers[0],
     createdAt: new Date("2024-01-16T09:15:00"),
     postId: "2",
+  },
+  {
+    id: "4",
+    content:
+      "The template literal types example was mind-blowing. Never thought about using them that way for event names!",
+    author: mockUsers[3],
+    createdAt: new Date("2024-01-12T08:45:00"),
+    postId: "3",
+  },
+  {
+    id: "5",
+    content:
+      "Container queries are finally here and I'm so happy about it. This article explains them better than the MDN docs honestly.",
+    author: mockUsers[0],
+    createdAt: new Date("2024-01-07T11:20:00"),
+    postId: "4",
+  },
+  {
+    id: "6",
+    content:
+      "Great primer on Web3. One thing I'd add: the tooling around Hardhat and Foundry has gotten really solid lately for smart contract testing.",
+    author: mockUsers[1],
+    createdAt: new Date("2024-01-04T16:00:00"),
+    postId: "5",
   },
 ];
 
@@ -93,16 +127,6 @@ const UserAvatar = ({ user, size }) => (
     alt={user.name}
     className={\`avatar avatar-\${size}\`}
   />
-);
-
-// Bad example - Multiple responsibilities
-const UserProfile = ({ user, onUpdate, onDelete, onShare }) => (
-  <div>
-    <img src={user.avatar} alt={user.name} />
-    <button onClick={() => onUpdate(user)}>Edit</button>
-    <button onClick={() => onDelete(user.id)}>Delete</button>
-    <button onClick={() => onShare(user.id)}>Share</button>
-  </div>
 );
 \`\`\`
 
@@ -182,12 +206,12 @@ While the opportunities are exciting, we must address:
 
 The future of web development will be a collaboration between human creativity and AI capabilities.`,
     excerpt:
-      "Explore how artificial intelligence is transforming web development, from code generation to user experience, and what it means for developers.",
+      "Explore how artificial intelligence is transforming web development, from code generation to user experience, and what it means for the future of the craft.",
     author: mockUsers[2],
     publishedAt: new Date("2024-01-08T14:30:00"),
     updatedAt: new Date("2024-01-08T14:30:00"),
     status: "published",
-    likes: 189,
+    likes: 312,
     comments: [mockComments[2]],
     tags: ["AI", "Machine Learning", "Future Tech"],
     coverImage:
@@ -233,13 +257,13 @@ type ButtonEvents = EventName<'click' | 'hover'>; // 'onClick' | 'onHover'
 
 Mastering TypeScript opens up new possibilities for type-safe, maintainable code.`,
     excerpt:
-      "Deep dive into advanced TypeScript patterns and techniques that will level up your development skills and code quality.",
+      "Deep dive into advanced TypeScript patterns including conditional types, template literals, and utility types that will sharpen your type-fu.",
     author: mockUsers[1],
     publishedAt: new Date("2024-01-05T09:00:00"),
     updatedAt: new Date("2024-01-05T09:00:00"),
     status: "published",
-    likes: 156,
-    comments: [],
+    likes: 198,
+    comments: [mockComments[3]],
     tags: ["TypeScript", "JavaScript", "Programming"],
     coverImage:
       "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
@@ -271,13 +295,13 @@ Modern layout systems:
 - Performance optimization
 - Accessibility considerations`,
     excerpt:
-      "Explore modern CSS techniques including Grid, Flexbox, and new features that make responsive design easier and more powerful.",
+      "Master modern CSS — from container queries to the new color spaces — and learn how to build truly responsive, component-aware layouts.",
     author: mockUsers[0],
     publishedAt: new Date("2024-01-03T16:00:00"),
     updatedAt: new Date("2024-01-03T16:00:00"),
     status: "published",
-    likes: 98,
-    comments: [],
+    likes: 143,
+    comments: [mockComments[4]],
     tags: ["CSS", "Design", "Frontend"],
     coverImage:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
@@ -314,18 +338,105 @@ Web3 is a decentralized internet built on blockchain technology.
 - Regulatory concerns
 - Technical complexity`,
     excerpt:
-      "An introduction to Web3 and blockchain development, covering key concepts, tools, and how to get started building decentralized applications.",
+      "A practical introduction to Web3 and blockchain development — covering smart contracts, dApps, and how to get your first project deployed on-chain.",
     author: mockUsers[2],
     publishedAt: new Date("2024-01-01T11:00:00"),
     updatedAt: new Date("2024-01-01T11:00:00"),
     status: "published",
-    likes: 134,
-    comments: [],
+    likes: 167,
+    comments: [mockComments[5]],
     tags: ["Web3", "Blockchain", "Cryptocurrency"],
     coverImage:
       "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
   },
+  {
+    id: "6",
+    title: "Designing for Performance: The Hidden UX of Speed",
+    content: `# Designing for Performance
+
+Speed is a feature. The way users perceive performance is as much a design problem as an engineering one.
+
+## Perceived vs. Actual Performance
+
+Users don't experience milliseconds — they experience wait. Perceived performance is about managing that experience:
+
+- Skeleton screens vs. spinners
+- Optimistic UI updates
+- Progressive loading strategies
+
+## Techniques That Matter
+
+- **Core Web Vitals**: LCP, CLS, INP explained
+- **Font loading**: How FOUT and FOIT affect UX
+- **Image optimization**: Modern formats and lazy loading
+
+## Designing Loading States
+
+Loading states are part of your brand. Poor loading states erode trust.`,
+    excerpt:
+      "Speed is a UX problem as much as an engineering one. Learn how to design loading states, optimize perceived performance, and build trust through snappy interfaces.",
+    author: mockUsers[1],
+    publishedAt: new Date("2023-12-28T13:00:00"),
+    updatedAt: new Date("2023-12-28T13:00:00"),
+    status: "published",
+    likes: 211,
+    comments: [],
+    tags: ["Design", "Frontend", "Performance"],
+    coverImage:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop",
+  },
+  {
+    id: "7",
+    title: "Node.js at Scale: Lessons from Production",
+    content: `# Node.js at Scale
+
+Running Node.js in production at scale teaches you things no tutorial covers. Here are lessons learned the hard way.
+
+## Event Loop Health
+
+The event loop is everything in Node.js. Blocking it — even briefly — cascades into latency spikes:
+
+- Use worker threads for CPU-intensive tasks
+- Monitor event loop lag in production
+- Profile with clinic.js
+
+## Memory Management
+
+Memory leaks in Node.js are subtle:
+
+- Understand V8 garbage collection
+- Watch for closure leaks
+- Stream large payloads instead of buffering
+
+## Clustering and Load Balancing
+
+- Use the cluster module or PM2
+- Leverage horizontal scaling
+- Implement graceful shutdowns`,
+    excerpt:
+      "Real-world lessons from running Node.js at scale — from event loop pitfalls to graceful shutdowns and memory leak hunting.",
+    author: mockUsers[3],
+    publishedAt: new Date("2023-12-22T10:30:00"),
+    updatedAt: new Date("2023-12-22T10:30:00"),
+    status: "published",
+    likes: 289,
+    comments: [],
+    tags: ["JavaScript", "Web Development", "Programming"],
+    coverImage:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
+  },
 ];
 
-export const trendingPosts = mockPosts.slice(0, 3);
-export const featuredPosts = mockPosts.slice(1, 4);
+export const trendingPosts = [...mockPosts]
+  .sort((a, b) => b.likes - a.likes)
+  .slice(0, 3);
+
+export const featuredPosts = mockPosts.slice(0, 4);
+
+export const getPostsByTag = (tag: string) =>
+  mockPosts.filter(p => p.tags.includes(tag));
+
+export const getPostsByAuthor = (authorId: string) =>
+  mockPosts.filter(p => p.author.id === authorId);
+
+export const allTags = [...new Set(mockPosts.flatMap(p => p.tags))];

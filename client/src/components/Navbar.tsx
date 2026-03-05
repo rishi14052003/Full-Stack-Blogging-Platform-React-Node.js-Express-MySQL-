@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Moon,
@@ -7,236 +7,379 @@ import {
   Menu,
   X,
   PenTool,
-  User,
-  LogOut,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 
 const Navbar: React.FC = () => {
-  const { state: authState, logout } = useAuth();
+  const { state: authState } = useAuth();
   const { state: themeState, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState("");
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-    setIsMenuOpen(false);
-  };
-
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Explore", path: "/explore" },
-    ...(authState.isAuthenticated
-      ? [
-          { name: "Write", path: "/write" },
-          { name: "Dashboard", path: "/dashboard" },
-        ]
-      : []),
-  ];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <PenTool className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400" />
-            <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
-              BlogSpace
-            </span>
+    <>
+      <style>{`
+        .navbar-root {
+          font-family: 'DM Sans', sans-serif;
+          background-color: #0c0f1a;
+          border-bottom: 1px solid rgba(255,255,255,0.07);
+          position: sticky;
+          top: 0;
+          z-index: 50;
+          backdrop-filter: blur(10px);
+          background-color: rgba(12,15,26,0.8);
+        }
+
+        .navbar-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+        }
+
+        @media (max-width: 768px) {
+          .navbar-inner {
+            padding: 0 16px;
+          }
+        }
+
+        .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+          transition: opacity 0.2s;
+        }
+
+        .nav-brand:hover {
+          opacity: 0.8;
+        }
+
+        .brand-icon {
+          width: 32px;
+          height: 32px;
+          background: linear-gradient(135deg, #6366f1, #4f46e5);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+        }
+
+        .brand-name {
+          font-family: 'Playfair Display', serif;
+          font-size: 18px;
+          font-weight: 600;
+          color: #ffffff;
+          letter-spacing: -0.2px;
+        }
+
+        .nav-center {
+          display: flex;
+          align-items: center;
+          gap: 32px;
+          flex: 1;
+          justify-content: center;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .nav-link {
+          padding: 8px 16px;
+          color: #8892a4;
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 500;
+          border-radius: 6px;
+          transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+          background: rgba(99,102,241,0.1);
+          color: #e2e8f0;
+        }
+
+        .nav-link.active {
+          background: rgba(99,102,241,0.15);
+          color: #ffffff;
+        }
+
+        .search-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .search-input {
+          width: 240px;
+          padding: 8px 12px 8px 36px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px;
+          color: #e2e8f0;
+          font-size: 14px;
+          outline: none;
+          transition: all 0.2s;
+        }
+
+        .search-input:focus {
+          border-color: rgba(99,102,241,0.4);
+          background: rgba(255,255,255,0.06);
+        }
+
+        .search-input::placeholder {
+          color: #4a5568;
+        }
+
+        .search-icon {
+          position: absolute;
+          left: 12px;
+          color: #4a5568;
+          pointer-events: none;
+        }
+
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .theme-toggle {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.04);
+          color: #8892a4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+          background: rgba(255,255,255,0.08);
+          color: #e2e8f0;
+        }
+
+        .user-menu {
+          position: relative;
+        }
+
+        .user-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 2px solid rgba(99,102,241,0.3);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .user-avatar:hover {
+          border-color: rgba(99,102,241,0.6);
+          transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.04);
+          color: #8892a4;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+          .nav-center, .search-container {
+            display: none;
+          }
+          .mobile-menu-btn {
+            display: flex;
+          }
+        }
+
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: #0c0f1a;
+          z-index: 100;
+          display: flex;
+          flex-direction: column;
+          padding: 80px 24px 24px;
+          transform: translateY(100%);
+          transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+          transform: translateY(0);
+        }
+
+        .mobile-menu-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 32px;
+        }
+
+        .mobile-nav-links {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 32px;
+        }
+
+        .mobile-search {
+          width: 100%;
+          padding: 12px 16px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px;
+          color: #e2e8f0;
+          font-size: 16px;
+          margin-bottom: 24px;
+        }
+      `}</style>
+
+      <nav className="navbar-root">
+        <div className="navbar-inner">
+          {/* Brand */}
+          <Link to="/" className="nav-brand">
+            <div className="brand-icon">
+              <PenTool size={16} color="#fff" />
+            </div>
+            <span className="brand-name">BlogSpace</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === item.path
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                }`}
-              >
-                {item.name}
+          {/* Center Navigation */}
+          <div className="nav-center">
+            <div className="nav-links">
+              <Link to="/" className={`nav-link ${location.pathname === "/" ? "active" : ""}`}>
+                Home
               </Link>
-            ))}
-          </div>
-
-          {/* Search Bar */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-32 sm:w-48 lg:w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <Link to="/explore" className={`nav-link ${location.pathname === "/explore" ? "active" : ""}`}>
+                Explore
+              </Link>
             </div>
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {themeState.isDark ? (
-                <Sun className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-              ) : (
-                <Moon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-              )}
-            </button>
-
-            {/* User Menu */}
-            {authState.isAuthenticated ? (
-              <div className="hidden md:flex items-center space-x-3">
-                <span className="hidden sm:block text-sm text-gray-700 dark:text-gray-300">
-                  {authState.user?.name}
-                </span>
-                <div className="relative group">
-                  <button className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                    <User className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-                  </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                    <Link
-                      to="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      Profile
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center space-x-2"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      <span>Logout</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="hidden md:flex items-center space-x-2 sm:space-x-3">
-                <Link
-                  to="/login"
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                >
-                  Sign Up
-                </Link>
-              </div>
-            )}
+            {/* Search */}
+            <div className="search-container">
+              <Search className="search-icon" size={16} />
+              <input
+                type="text"
+                placeholder="Search stories..."
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {themeState.isDark ? (
-                <Sun className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-              ) : (
-                <Moon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-              )}
+          {/* Right Side */}
+          <div className="nav-right">
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {themeState.isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-              ) : (
-                <Menu className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-              )}
+
+            {authState.user ? (
+              <div className="user-menu">
+                <img
+                  src={authState.user.avatar || `https://ui-avatars.com/api/?name=${authState.user.name}&background=3b82f6&color=fff`}
+                  alt={authState.user.name}
+                  className="user-avatar"
+                  onClick={() => navigate("/profile")}
+                />
+              </div>
+            ) : (
+              <Link to="/login" className="nav-link">
+                Sign In
+              </Link>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(true)}>
+              <Menu size={18} />
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-800 py-4">
-            <div className="space-y-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block text-sm font-medium transition-colors py-2 ${
-                    location.pathname === item.path
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+          <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
+            <div className="mobile-menu-header">
+              <Link to="/" className="nav-brand">
+                <div className="brand-icon">
+                  <PenTool size={16} color="#fff" />
+                </div>
+                <span className="brand-name">BlogSpace</span>
+              </Link>
+              <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(false)}>
+                <X size={18} />
+              </button>
+            </div>
 
-              {/* Mobile Search */}
-              <div className="relative pt-2">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+            <div className="mobile-nav-links">
+              <Link to="/" className={`nav-link ${location.pathname === "/" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>
+                Home
+              </Link>
+              <Link to="/explore" className={`nav-link ${location.pathname === "/explore" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>
+                Explore
+              </Link>
+            </div>
 
-              {/* Mobile Auth */}
-              {!authState.isAuthenticated ? (
-                <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <Link
-                    to="/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/signup"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center text-sm"
-                  >
-                    Sign Up
-                  </Link>
+            <input
+              type="text"
+              placeholder="Search stories..."
+              className="mobile-search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+
+            <div className="nav-right">
+              <button className="theme-toggle" onClick={toggleTheme}>
+                {themeState.isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              {authState.user ? (
+                <div className="user-menu">
+                  <img
+                    src={authState.user.avatar || `https://ui-avatars.com/api/?name=${authState.user.name}&background=3b82f6&color=fff`}
+                    alt={authState.user.name}
+                    className="user-avatar"
+                    onClick={() => {
+                      navigate("/profile");
+                      setIsMenuOpen(false);
+                    }}
+                  />
                 </div>
               ) : (
-                <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <div className="text-sm text-gray-700 dark:text-gray-300 py-2">
-                    {authState.user?.name}
-                  </div>
-                  <Link
-                    to="/profile"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2"
-                  >
-                    Profile
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center space-x-2 py-2"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    <span>Logout</span>
-                  </button>
-                </div>
+                <Link to="/login" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                  Sign In
+                </Link>
               )}
             </div>
           </div>
         )}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
