@@ -8,7 +8,7 @@ interface Post {
   id: string | number;
   title: string;
   excerpt?: string;
-  author?: { name: string; avatar?: string };
+  author?: { username: string; avatar?: string };
   category?: string;
   readTime?: string;
   date?: string;
@@ -54,11 +54,11 @@ const BlogCard: React.FC<{ post: Post; variant?: 'featured' | 'default' | 'trend
             <div className="card-author">
               <div className="card-avatar">
                 {post.author.avatar
-                  ? <img src={post.author.avatar} alt={post.author.name} />
-                  : <span>{post.author.name[0]}</span>
+                  ? <img src={post.author.avatar} alt={post.author.username} />
+                  : <span>{post.author.username[0]}</span>
                 }
               </div>
-              <span className="card-author-name">{post.author.name}</span>
+              <span className="card-author-name">{post.author.username}</span>
             </div>
           )}
           <div className="card-stats">
@@ -152,34 +152,6 @@ const LandingPage: React.FC = () => {
           z-index: 1;
         }
 
-        .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 16px;
-          background: rgba(99,102,241,0.1);
-          border: 1px solid rgba(99,102,241,0.2);
-          border-radius: 100px;
-          font-size: 12px;
-          font-weight: 500;
-          color: #a5b4fc;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          margin-bottom: 32px;
-        }
-
-        .hero-badge-dot {
-          width: 6px; height: 6px;
-          background: #818cf8;
-          border-radius: 50%;
-          animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-          0%,100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.7); }
-        }
-
         .hero-title {
           font-family: var(--font-display);
           font-size: clamp(48px, 7vw, 86px);
@@ -228,19 +200,43 @@ const LandingPage: React.FC = () => {
           font-size: 15px;
           font-weight: 500;
           text-decoration: none;
-          transition: var(--transition);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
           border: none;
+          position: relative;
+          z-index: 1;
         }
 
         .btn-primary {
           background: linear-gradient(135deg, #6366f1, #4f46e5);
           color: #fff;
           box-shadow: 0 0 0 0 rgba(99,102,241,0.4), 0 4px 20px rgba(99,102,241,0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .btn-primary::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.6s ease;
         }
         .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 0 30px rgba(99,102,241,0.35), 0 8px 30px rgba(99,102,241,0.4);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 10px 40px rgba(99,102,241,0.4), 0 0 0 1px rgba(99,102,241,0.1);
+          background: linear-gradient(135deg, #7c3aed, #6366f1);
+          color: #fff;
+        }
+        .btn-primary:hover::before {
+          left: 100%;
+        }
+        .btn-primary:active {
+          transform: translateY(-1px) scale(1.01);
+          box-shadow: 0 5px 25px rgba(99,102,241,0.35), 0 0 0 1px rgba(99,102,241,0.15);
+          color: #fff;
         }
 
         .btn-ghost {
@@ -707,10 +703,6 @@ const LandingPage: React.FC = () => {
 
         {/* ── HERO ──────────────────────────────────────────────────── */}
         <section className="hero">
-          <div className="hero-badge">
-            <span className="hero-badge-dot" />
-            Now in public beta
-          </div>
           <h1 className="hero-title">
             Where <em>great ideas</em><br />find their voice
           </h1>

@@ -13,23 +13,23 @@ const BlogFeedPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  const allTags = Array.from(new Set(mockPosts.flatMap(post => post.tags)));
+  const allTags = Array.from(new Set(mockPosts.flatMap(post => post.tags || [])));
 
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.author.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTag = selectedTag === "all" || post.tags.includes(selectedTag);
+                         post.author.username.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTag = selectedTag === "all" || post.tags?.includes(selectedTag);
     return matchesSearch && matchesTag;
   });
 
   const sortedPosts = [...filteredPosts].sort((a, b) => {
     if (sortBy === "latest") {
-      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     } else if (sortBy === "popular") {
-      return b.likes - a.likes;
+      return (b.likes || 0) - (a.likes || 0);
     } else {
-      return (b.likes + b.comments.length) - (a.likes + a.comments.length);
+      return ((b.likes || 0) + (b.comments?.length || 0)) - ((a.likes || 0) + (a.comments?.length || 0));
     }
   });
 

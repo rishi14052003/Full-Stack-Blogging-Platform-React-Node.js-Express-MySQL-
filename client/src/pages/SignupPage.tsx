@@ -63,13 +63,16 @@ const SignupPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif" }} className="min-h-screen bg-[#080810] flex">
+    <div className="min-h-screen bg-white dark:bg-gray-900 flex">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,500&display=swap');
 
         .signup-panel {
           position: relative;
           overflow: hidden;
+          background: white;
+        }
+        .dark .signup-panel {
           background: #080810;
         }
         .signup-panel::before {
@@ -82,13 +85,21 @@ const SignupPage: React.FC = () => {
           background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 65%);
           pointer-events: none;
         }
+        .dark .signup-panel::before {
+          background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 65%);
+        }
         .grid-bg {
           position: absolute;
           inset: 0;
           background-image:
+            linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+          background-size: 48px 48px;
+        }
+        .dark .grid-bg {
+          background-image:
             linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-          background-size: 48px 48px;
         }
         .dot-accent {
           position: absolute;
@@ -110,14 +121,22 @@ const SignupPage: React.FC = () => {
           transition: color 0.2s;
         }
         .field-label.focused { color: #a5b4fc; }
+        .dark .field-label {
+          color: #6b7280;
+        }
+        .dark .field-label.focused { color: #a5b4fc; }
 
         .field-wrap {
           position: relative;
-          border: 1px solid #1a1a2e;
+          border: 1px solid #e5e7eb;
           border-radius: 8px;
-          background: #0e0e1c;
+          background: white;
           transition: border-color 0.25s, box-shadow 0.25s;
           overflow: hidden;
+        }
+        .dark .field-wrap {
+          border-color: #1a1a2e;
+          background: #0e0e1c;
         }
         .field-wrap::before {
           content: '';
@@ -138,12 +157,16 @@ const SignupPage: React.FC = () => {
           background: transparent;
           border: none;
           outline: none;
-          color: #f9fafb;
+          color: #111827;
           font-size: 14px;
           font-family: inherit;
           font-weight: 400;
         }
-        .field-input::placeholder { color: #2d2d4a; }
+        .dark .field-input {
+          color: #f9fafb;
+        }
+        .field-input::placeholder { color: #9ca3af; }
+        .dark .field-input::placeholder { color: #2d2d4a; }
 
         .field-icon-btn {
           position: absolute;
@@ -160,6 +183,10 @@ const SignupPage: React.FC = () => {
           align-items: center;
         }
         .field-icon-btn:hover { color: #9ca3af; }
+        .dark .field-icon-btn {
+          color: #4b5563;
+        }
+        .dark .field-icon-btn:hover { color: #9ca3af; }
 
         .submit-btn {
           width: 100%;
@@ -224,14 +251,20 @@ const SignupPage: React.FC = () => {
           align-items: center;
           gap: 12px;
           padding: 12px 0;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .perk-item {
           border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         .perk-item:last-child { border-bottom: none; }
 
         .right-panel {
-          background: linear-gradient(160deg, #0f0b1f 0%, #1a0a35 40%, #0f0b1f 100%);
+          background: linear-gradient(160deg, #f9fafb 0%, #f3f4f6 40%, #f9fafb 100%);
           position: relative;
           overflow: hidden;
+        }
+        .dark .right-panel {
+          background: linear-gradient(160deg, #0f0b1f 0%, #1a0a35 40%, #0f0b1f 100%);
         }
         .orb-r {
           position: absolute;
@@ -245,11 +278,15 @@ const SignupPage: React.FC = () => {
         }
 
         .preview-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: rgba(0,0,0,0.04);
+          border: 1px solid rgba(0,0,0,0.07);
           border-radius: 12px;
           padding: 20px 24px;
           transition: transform 0.3s, border-color 0.3s;
+        }
+        .dark .preview-card {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.07);
         }
         .preview-card:hover {
           transform: translateY(-2px);
@@ -258,13 +295,17 @@ const SignupPage: React.FC = () => {
 
         .checkbox-custom {
           width: 15px; height: 15px;
-          border: 1px solid #374151;
+          border: 1px solid #d1d5db;
           border-radius: 4px;
-          background: #0e0e1c;
+          background: white;
           cursor: pointer;
           appearance: none;
           flex-shrink: 0;
           transition: all 0.2s;
+        }
+        .dark .checkbox-custom {
+          border-color: #374151;
+          background: #0e0e1c;
         }
         .checkbox-custom:checked {
           background: #7c3aed;
@@ -295,11 +336,11 @@ const SignupPage: React.FC = () => {
               borderRadius: 7,
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white dark:text-white">
                 <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
               </svg>
             </div>
-            <span style={{ fontSize: 17, fontWeight: 600, color: '#f9fafb', letterSpacing: '-0.02em' }}>BlogSpace</span>
+            <span style={{ fontSize: 17, fontWeight: 600, color: '#111827', letterSpacing: '-0.02em' }} className="dark:text-gray-100">BlogSpace</span>
           </Link>
         </div>
 
@@ -310,10 +351,10 @@ const SignupPage: React.FC = () => {
           </p>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 36, fontWeight: 700, color: '#f9fafb', lineHeight: 1.2,
+            fontSize: 36, fontWeight: 700, color: '#111827', lineHeight: 1.2,
             marginBottom: 32, letterSpacing: '-0.01em'
-          }}>
-            Your words deserve<br /><em style={{ fontStyle: 'italic', color: '#c084fc' }}>a beautiful home</em>
+          }} className="dark:text-gray-100">
+            Your words deserve<br /><em style={{ fontStyle: 'italic', color: '#a855f7' }} className="dark:text-purple-300">a beautiful home</em>
           </h2>
 
           {/* Perks */}
@@ -330,7 +371,7 @@ const SignupPage: React.FC = () => {
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                 </div>
-                <span style={{ fontSize: 14, color: '#d1d5db', fontWeight: 400 }}>{perk}</span>
+                <span style={{ fontSize: 14, color: '#374151', fontWeight: 400 }} className="dark:text-gray-300">{perk}</span>
               </div>
             ))}
           </div>
@@ -340,24 +381,24 @@ const SignupPage: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
               <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #a855f7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: 'white', fontWeight: 600 }}>A</div>
               <div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: '#f9fafb' }}>Alex Rivera</p>
-                <p style={{ fontSize: 11, color: '#6b7280' }}>5 min read · Just now</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: '#111827' }} className="dark:text-gray-100">Alex Rivera</p>
+                <p style={{ fontSize: 11, color: '#6b7280' }} className="dark:text-gray-400">5 min read · Just now</p>
               </div>
               <div style={{ marginLeft: 'auto', padding: '3px 10px', background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: 20, fontSize: 11, color: '#c084fc' }}>Technology</div>
             </div>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 500, color: '#e5e7eb', lineHeight: 1.5, marginBottom: 10 }}>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 500, color: '#374151', lineHeight: 1.5, marginBottom: 10 }} className="dark:text-gray-200">
               The future of writing is here — and it's more human than ever.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               {[['❤️', '248'], ['💬', '32'], ['🔖', '89']].map(([icon, count], i) => (
-                <span key={i} style={{ fontSize: 12, color: '#6b7280' }}>{icon} {count}</span>
+                <span key={i} style={{ fontSize: 12, color: '#6b7280' }} className="dark:text-gray-400">{icon} {count}</span>
               ))}
             </div>
           </div>
         </div>
 
         <div className="relative z-10">
-          <p style={{ fontSize: 12, color: '#374151' }}>© 2025 BlogSpace — All rights reserved</p>
+          <p style={{ fontSize: 12, color: '#374151' }} className="dark:text-gray-500">© 2025 BlogSpace — All rights reserved</p>
         </div>
       </div>
 
@@ -373,11 +414,11 @@ const SignupPage: React.FC = () => {
                 width: 34, height: 34, background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
                 borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white dark:text-white">
                   <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
                 </svg>
               </div>
-              <span style={{ fontSize: 17, fontWeight: 600, color: '#f9fafb' }}>BlogSpace</span>
+              <span style={{ fontSize: 17, fontWeight: 600, color: '#111827' }} className="dark:text-gray-100">BlogSpace</span>
             </Link>
           </div>
 
@@ -386,10 +427,10 @@ const SignupPage: React.FC = () => {
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a855f7', marginBottom: 10 }}>
               Join the community
             </p>
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 34, fontWeight: 700, color: '#f9fafb', lineHeight: 1.2, marginBottom: 10, letterSpacing: '-0.01em' }}>
-              Create your<br /><em style={{ fontStyle: 'italic', color: '#c084fc' }}>free account</em>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 34, fontWeight: 700, color: '#111827', lineHeight: 1.2, marginBottom: 10, letterSpacing: '-0.01em' }} className="dark:text-gray-100">
+              Create your<br /><em style={{ fontStyle: 'italic', color: '#a855f7' }} className="dark:text-purple-300">free account</em>
             </h1>
-            <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.6 }} className="dark:text-gray-400">
               Join 50,000+ writers sharing their stories.
             </p>
           </div>
@@ -456,14 +497,16 @@ const SignupPage: React.FC = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                 />
-                <button type="button" className="field-icon-btn" onClick={() => setShowPassword(!showPassword)}>
+                <button type="button" className="field-icon-btn text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
               {/* Strength indicator */}
               {password && passwordStrength && (
                 <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ flex: 1, height: 3, background: '#1a1a2e', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ 
+                      flex: 1, height: 3, background: '#e5e7eb', borderRadius: 4, overflow: 'hidden'
+                    }} className="dark:bg-gray-700">
                     <div style={{
                       height: '100%',
                       width: strengthConfig[passwordStrength].width,
@@ -493,7 +536,7 @@ const SignupPage: React.FC = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                 />
-                <button type="button" className="field-icon-btn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                <button type="button" className="field-icon-btn text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                   {showConfirmPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
@@ -505,7 +548,7 @@ const SignupPage: React.FC = () => {
             {/* Terms */}
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 24 }}>
               <input type="checkbox" className="checkbox-custom" required style={{ marginTop: 2 }} />
-              <span style={{ fontSize: 12, color: '#6b7280', lineHeight: 1.6 }}>
+              <span style={{ fontSize: 12, color: '#6b7280', lineHeight: 1.6 }} className="dark:text-gray-400">
                 I agree to the{' '}
                 <a href="#" style={{ color: '#a855f7', textDecoration: 'none' }}>Terms of Service</a>
                 {' '}and{' '}
@@ -517,18 +560,18 @@ const SignupPage: React.FC = () => {
             <button type="submit" className="submit-btn" disabled={isLoading || isSuccess}>
               {isLoading ? (
                 <>
-                  <svg className="spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                  <svg className="spin text-white dark:text-white" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
                   Creating account…
                 </>
               ) : isSuccess ? (
                 <>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-white dark:text-white"><polyline points="20 6 9 17 4 12"/></svg>
                   Account Created!
                 </>
               ) : (
                 <>
                   Create Free Account
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} className="text-white dark:text-white" />
                 </>
               )}
             </button>
@@ -536,26 +579,26 @@ const SignupPage: React.FC = () => {
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '24px 0' }}>
-            <div style={{ flex: 1, height: 1, background: '#111127' }} />
-            <span style={{ fontSize: 11, color: '#2d2d4a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Have an account?</span>
-            <div style={{ flex: 1, height: 1, background: '#111127' }} />
+            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} className="dark:bg-gray-700" />
+            <span style={{ fontSize: 11, color: '#6b7280', letterSpacing: '0.08em', textTransform: 'uppercase' }} className="dark:text-gray-500">Have an account?</span>
+            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} className="dark:bg-gray-700" />
           </div>
 
           <Link to="/login" style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
             padding: '12px 20px',
-            border: '1px solid #1a1a2e',
+            border: '1px solid #e5e7eb',
             borderRadius: 8,
             color: '#6b7280',
             fontSize: 13,
             fontWeight: 500,
             textDecoration: 'none',
             transition: 'all 0.2s',
-          }}
+          }} className="dark:border-gray-700 dark:text-gray-400"
             onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = '#7c3aed'; (e.currentTarget as HTMLElement).style.color = '#c084fc'; }}
-            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = '#1a1a2e'; (e.currentTarget as HTMLElement).style.color = '#6b7280'; }}>
+            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLElement).style.color = '#6b7280'; }}>
             Sign in to existing account
-            <ArrowRight size={13} />
+            <ArrowRight size={13} className="text-gray-600 dark:text-gray-400" />
           </Link>
         </div>
       </div>

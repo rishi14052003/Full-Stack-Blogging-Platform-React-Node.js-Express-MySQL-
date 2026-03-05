@@ -302,8 +302,8 @@ const Navbar: React.FC = () => {
             {authState.user ? (
               <div className="user-menu">
                 <img
-                  src={authState.user.avatar || `https://ui-avatars.com/api/?name=${authState.user.name}&background=3b82f6&color=fff`}
-                  alt={authState.user.name}
+                  src={authState.user.avatar || `https://ui-avatars.com/api/?username=${authState.user.username}&background=3b82f6&color=fff`}
+                  alt={authState.user.username}
                   className="user-avatar"
                   onClick={() => navigate("/profile")}
                 />
@@ -361,8 +361,8 @@ const Navbar: React.FC = () => {
               {authState.user ? (
                 <div className="user-menu">
                   <img
-                    src={authState.user.avatar || `https://ui-avatars.com/api/?name=${authState.user.name}&background=3b82f6&color=fff`}
-                    alt={authState.user.name}
+                    src={authState.user.avatar || `https://ui-avatars.com/api/?username=${authState.user.username}&background=3b82f6&color=fff`}
+                    alt={authState.user.username}
                     className="user-avatar"
                     onClick={() => {
                       navigate("/profile");

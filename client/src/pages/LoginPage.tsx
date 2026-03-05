@@ -31,14 +31,15 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif" }} className="min-h-screen bg-[#0a0a0f] flex">
+    <div className="min-h-screen bg-white dark:bg-gray-900 flex">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
 
         .login-left {
+          background: white;
+        }
+        .dark .login-left {
           background: #0a0a0f;
-          position: relative;
-          overflow: hidden;
         }
         .login-left::before {
           content: '';
@@ -49,6 +50,9 @@ const LoginPage: React.FC = () => {
           height: 600px;
           background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
           pointer-events: none;
+        }
+        .dark .login-left::before {
+          background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
         }
         .login-left::after {
           content: '';
@@ -65,9 +69,14 @@ const LoginPage: React.FC = () => {
           position: absolute;
           inset: 0;
           background-image:
+            linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+          background-size: 48px 48px;
+        }
+        .dark .grid-bg {
+          background-image:
             linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-          background-size: 48px 48px;
         }
 
         .field-container {
@@ -84,16 +93,23 @@ const LoginPage: React.FC = () => {
           margin-bottom: 10px;
           transition: color 0.2s;
         }
+        .dark .field-label {
+          color: #6b7280;
+        }
         .field-label.focused {
-          color: #a5b4fc;
+          color: #6366f1;
         }
         .field-input-wrap {
           position: relative;
-          border: 1px solid #1f2937;
+          border: 1px solid #e5e7eb;
           border-radius: 8px;
-          background: #111118;
+          background: white;
           transition: border-color 0.25s, box-shadow 0.25s;
           overflow: hidden;
+        }
+        .dark .field-input-wrap {
+          border-color: #1f2937;
+          background: #111118;
         }
         .field-input-wrap.focused {
           border-color: #4f46e5;
@@ -119,13 +135,19 @@ const LoginPage: React.FC = () => {
           background: transparent;
           border: none;
           outline: none;
-          color: #f9fafb;
+          color: #111827;
           font-size: 14px;
           font-family: inherit;
           font-weight: 400;
           letter-spacing: 0.01em;
         }
+        .dark .field-input {
+          color: #f9fafb;
+        }
         .field-input::placeholder {
+          color: #9ca3af;
+        }
+        .dark .field-input::placeholder {
           color: #374151;
         }
         .field-icon {
@@ -133,11 +155,15 @@ const LoginPage: React.FC = () => {
           right: 14px;
           top: 50%;
           transform: translateY(-50%);
-          color: #4b5563;
+          color: #6b7280;
           cursor: pointer;
           transition: color 0.2s;
         }
         .field-icon:hover { color: #9ca3af; }
+        .dark .field-icon {
+          color: #4b5563;
+        }
+        .dark .field-icon:hover { color: #9ca3af; }
 
         .submit-btn {
           width: 100%;
@@ -182,7 +208,11 @@ const LoginPage: React.FC = () => {
           font-weight: 500;
           transition: color 0.2s;
         }
-        .alt-link:hover { color: #a5b4fc; }
+        .dark .alt-link {
+          color: #6b7280;
+        }
+        .alt-link:hover { color: #6366f1; }
+        .dark .alt-link:hover { color: #a5b4fc; }
         .alt-link svg { transition: transform 0.2s; }
         .alt-link:hover svg { transform: translateX(3px); }
 
@@ -217,12 +247,15 @@ const LoginPage: React.FC = () => {
         }
 
         .right-panel {
-          background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 50%, #0f0f1a 100%);
+          background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #f9fafb 100%);
           position: relative;
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .dark .right-panel {
+          background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 50%, #0f0f1a 100%);
         }
         .right-panel::before {
           content: '';
@@ -232,6 +265,9 @@ const LoginPage: React.FC = () => {
           transform: translateX(-50%);
           width: 400px;
           height: 400px;
+          background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 65%);
+        }
+        .dark .right-panel::before {
           background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 65%);
         }
         .orb {
@@ -253,26 +289,37 @@ const LoginPage: React.FC = () => {
           top: -16px;
           left: -8px;
         }
+        .dark .quote-mark {
+          color: rgba(99,102,241,0.2);
+        }
         .stat-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(0,0,0,0.04);
+          border: 1px solid rgba(0,0,0,0.08);
           border-radius: 10px;
           padding: 16px 20px;
           display: flex;
           flex-direction: column;
           gap: 4px;
         }
+        .dark .stat-card {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+        }
 
         .checkbox-custom {
           width: 16px;
           height: 16px;
-          border: 1px solid #374151;
+          border: 1px solid #d1d5db;
           border-radius: 4px;
-          background: #111118;
+          background: white;
           cursor: pointer;
           appearance: none;
           flex-shrink: 0;
           transition: all 0.2s;
+        }
+        .dark .checkbox-custom {
+          border-color: #374151;
+          background: #111118;
         }
         .checkbox-custom:checked {
           background: #4f46e5;
@@ -284,38 +331,36 @@ const LoginPage: React.FC = () => {
         }
       `}</style>
 
-      {/* Left — Form Panel */}
-      <div className="login-left flex-1 flex flex-col justify-between p-10 lg:p-16 max-w-xl w-full">
+      {/* Form Panel */}
+      <div className="login-left flex-1 flex flex-col justify-center p-10 lg:p-16">
         <div className="grid-bg" />
-        
-        {/* Logo */}
-        <div className="relative z-10">
-          <Link to="/" className="inline-flex items-center gap-3 group">
-            <div style={{
-              width: 36, height: 36,
-              background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
-              borderRadius: 8,
-              display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
-              </svg>
-            </div>
-            <span style={{ fontSize: 18, fontWeight: 600, color: '#f9fafb', letterSpacing: '-0.02em' }}>BlogSpace</span>
-          </Link>
-        </div>
 
-        {/* Form Area */}
-        <div className="relative z-10" style={{ maxWidth: 400 }}>
+        <div className="relative z-10" style={{ maxWidth: 420, margin: '0 auto', width: '100%' }}>
+          {/* Logo */}
+          <div className="lg:hidden flex justify-center mb-10">
+            <Link to="/" className="inline-flex items-center gap-3">
+              <div style={{
+                width: 36, height: 36,
+                background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                borderRadius: 8,
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white dark:text-white">
+                  <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+              </div>
+              <span style={{ fontSize: 18, fontWeight: 600, color: '#111827', letterSpacing: '-0.02em' }} className="dark:text-gray-100">BlogSpace</span>
+            </Link>
+          </div>
           {/* Heading */}
           <div style={{ marginBottom: 40 }}>
             <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6366f1', marginBottom: 12 }}>
               Welcome back
             </p>
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 40, fontWeight: 700, color: '#f9fafb', lineHeight: 1.15, marginBottom: 12, letterSpacing: '-0.01em' }}>
-              Sign in to<br /><em style={{ fontStyle: 'italic', color: '#a5b4fc' }}>your space</em>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 40, fontWeight: 700, color: '#111827', lineHeight: 1.15, marginBottom: 12, letterSpacing: '-0.01em' }} className="dark:text-gray-100">
+              Sign in to<br /><em style={{ fontStyle: 'italic', color: '#6366f1' }} className="dark:text-indigo-300">your space</em>
             </h1>
-            <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.6 }} className="dark:text-gray-400">
               Continue your creative journey. Your stories await.
             </p>
           </div>
@@ -323,7 +368,7 @@ const LoginPage: React.FC = () => {
           {/* Alerts */}
           {isSuccess && (
             <div className="success-bar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }} className="text-green-600 dark:text-green-400">
                 <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
               </svg>
               <div>
@@ -334,7 +379,7 @@ const LoginPage: React.FC = () => {
           )}
           {error && (
             <div className="error-bar">
-              <AlertCircle size={16} color="#ef4444" style={{ flexShrink: 0, marginTop: 1 }} />
+              <AlertCircle size={16} color="#ef4444" style={{ flexShrink: 0, marginTop: 1 }} className="text-red-600 dark:text-red-400" />
               <div>
                 <p style={{ fontSize: 13, fontWeight: 600, color: '#ef4444' }}>Authentication failed</p>
                 <p style={{ fontSize: 12, color: '#fca5a5', marginTop: 2 }}>{error}</p>
@@ -343,7 +388,7 @@ const LoginPage: React.FC = () => {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="w-full">
             {/* Email */}
             <div className="field-container">
               <label className={`field-label ${focusedField === 'email' ? 'focused' : ''}`}>Email address</label>
@@ -375,7 +420,7 @@ const LoginPage: React.FC = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                 />
-                <button type="button" className="field-icon" onClick={() => setShowPassword(!showPassword)}>
+                <button type="button" className="field-icon text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -385,9 +430,9 @@ const LoginPage: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                 <input type="checkbox" className="checkbox-custom" />
-                <span style={{ fontSize: 13, color: '#6b7280' }}>Stay signed in</span>
+                <span style={{ fontSize: 13, color: '#6b7280' }} className="dark:text-gray-400">Stay signed in</span>
               </label>
-              <a href="#" style={{ fontSize: 13, color: '#6366f1', textDecoration: 'none', fontWeight: 500 }}
+              <a href="#" style={{ fontSize: 13, color: '#6366f1', textDecoration: 'none', fontWeight: 500 }} className="dark:text-indigo-400"
                 onMouseOver={e => (e.target as HTMLElement).style.color = '#a5b4fc'}
                 onMouseOut={e => (e.target as HTMLElement).style.color = '#6366f1'}>
                 Forgot password?
@@ -398,18 +443,18 @@ const LoginPage: React.FC = () => {
             <button type="submit" className="submit-btn" disabled={isLoading || isSuccess}>
               {isLoading ? (
                 <>
-                  <svg className="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                  <svg className="spin text-white dark:text-white" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
                   Verifying…
                 </>
               ) : isSuccess ? (
                 <>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-white dark:text-white"><polyline points="20 6 9 17 4 12"/></svg>
                   Success
                 </>
               ) : (
                 <>
                   Sign In
-                  <ArrowRight size={15} />
+                  <ArrowRight size={15} className="text-white dark:text-white" />
                 </>
               )}
             </button>
@@ -417,98 +462,24 @@ const LoginPage: React.FC = () => {
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '28px 0' }}>
-            <div style={{ flex: 1, height: 1, background: '#1f2937' }} />
-            <span style={{ fontSize: 12, color: '#374151', letterSpacing: '0.08em', textTransform: 'uppercase' }}>New here?</span>
-            <div style={{ flex: 1, height: 1, background: '#1f2937' }} />
+            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} className="dark:bg-gray-700" />
+            <span style={{ fontSize: 12, color: '#6b7280', letterSpacing: '0.08em', textTransform: 'uppercase' }} className="dark:text-gray-500">New here?</span>
+            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} className="dark:bg-gray-700" />
           </div>
 
-          <Link to="/signup" className="alt-link" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 500, color: '#6b7280', textDecoration: 'none' }}
+          <Link to="/signup" className="alt-link flex justify-center" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 500, color: '#6b7280', textDecoration: 'none' }}
             onMouseOver={e => (e.currentTarget as HTMLElement).style.color = '#a5b4fc'}
             onMouseOut={e => (e.currentTarget as HTMLElement).style.color = '#6b7280'}>
             Create a free account
-            <ArrowRight size={14} />
+            <ArrowRight size={14} className="text-gray-600 dark:text-gray-400" />
           </Link>
         </div>
 
         {/* Footer */}
-        <div className="relative z-10">
-          <p style={{ fontSize: 12, color: '#374151' }}>
-            © 2025 BlogSpace · <a href="#" style={{ color: '#4b5563', textDecoration: 'none' }}>Privacy</a> · <a href="#" style={{ color: '#4b5563', textDecoration: 'none' }}>Terms</a>
+        <div className="relative z-10 flex justify-center">
+          <p style={{ fontSize: 12, color: '#6b7280' }} className="dark:text-gray-500">
+            © 2025 BlogSpace · <a href="#" style={{ color: '#9ca3af', textDecoration: 'none' }} className="dark:text-gray-400">Privacy</a> · <a href="#" style={{ color: '#9ca3af', textDecoration: 'none' }} className="dark:text-gray-400">Terms</a>
           </p>
-        </div>
-      </div>
-
-      {/* Right — Visual Panel (hidden on mobile) */}
-      <div className="right-panel hidden lg:flex flex-1 flex-col items-center justify-center p-16 relative">
-        {/* Ambient orbs */}
-        <div className="orb" style={{ width: 300, height: 300, background: 'rgba(99,102,241,0.15)', top: '10%', left: '20%', animationDelay: '0s' }} />
-        <div className="orb" style={{ width: 200, height: 200, background: 'rgba(168,85,247,0.12)', bottom: '15%', right: '15%', animationDelay: '3s' }} />
-
-        {/* Geometric decoration */}
-        <div style={{
-          position: 'absolute', top: 48, right: 48,
-          width: 80, height: 80,
-          border: '1px solid rgba(99,102,241,0.2)',
-          borderRadius: 4,
-          transform: 'rotate(15deg)'
-        }} />
-        <div style={{
-          position: 'absolute', bottom: 80, left: 48,
-          width: 50, height: 50,
-          border: '1px solid rgba(168,85,247,0.2)',
-          borderRadius: '50%',
-        }} />
-
-        <div className="relative z-10" style={{ maxWidth: 420, textAlign: 'left' }}>
-          {/* Testimonial */}
-          <div style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: 16,
-            padding: '32px 36px',
-            marginBottom: 32,
-            position: 'relative',
-          }}>
-            <div className="quote-mark">"</div>
-            <p style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 20,
-              fontStyle: 'italic',
-              color: '#e5e7eb',
-              lineHeight: 1.6,
-              marginBottom: 20,
-              paddingTop: 20,
-            }}>
-              BlogSpace transformed how I share ideas. It's not just a platform — it's a creative home.
-            </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 16, color: 'white', fontWeight: 600
-              }}>S</div>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 600, color: '#f9fafb' }}>Sarah Chen</p>
-                <p style={{ fontSize: 12, color: '#6b7280' }}>Senior Writer · 2.4k followers</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            {[
-              { value: '50K+', label: 'Active writers' },
-              { value: '2M+', label: 'Stories published' },
-              { value: '98%', label: 'Satisfaction rate' },
-              { value: '4.9★', label: 'Average rating' },
-            ].map((s, i) => (
-              <div key={i} className="stat-card">
-                <span style={{ fontSize: 22, fontWeight: 700, color: '#a5b4fc', letterSpacing: '-0.02em' }}>{s.value}</span>
-                <span style={{ fontSize: 12, color: '#6b7280' }}>{s.label}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

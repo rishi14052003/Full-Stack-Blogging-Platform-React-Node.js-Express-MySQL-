@@ -78,7 +78,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
             style={{
               width: "3px",
               borderRadius: "4px",
-              background: `linear-gradient(180deg, ${getTagStyle(post.tags[0]).dot}, transparent)`,
+              background: `linear-gradient(180deg, ${getTagStyle(post.tags?.[0] || 'default').dot}, transparent)`,
               alignSelf: "stretch",
               flexShrink: 0,
             }}
@@ -112,11 +112,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
               {post.author.username} · {timeAgo}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              {post.tags.slice(0, 1).map(tag => {
+              {post.tags?.slice(0, 1).map((tag, index) => {
                 const s = getTagStyle(tag);
                 return (
                   <span
-                    key={tag}
+                    key={`${tag}-${index}`}
                     style={{
                       fontSize: "10px",
                       fontWeight: 600,
@@ -137,7 +137,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: "3px", fontSize: "11px", color: "#94A3B8" }}>
                 <MessageCircle size={11} />
-                {post.comments.length}
+                {post.comments?.length}
               </span>
             </div>
           </div>
@@ -196,11 +196,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
               />
               {/* Tags on image */}
               <div style={{ position: "absolute", top: "12px", left: "12px", display: "flex", gap: "6px" }}>
-                {post.tags.slice(0, 2).map(tag => {
+                {post.tags?.slice(0, 2).map((tag, index) => {
                   const s = getTagStyle(tag);
                   return (
                     <span
-                      key={tag}
+                      key={`${tag}-${index}`}
                       style={{
                         fontSize: "10px",
                         fontWeight: 700,
@@ -345,7 +345,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
                   }}
                 >
                   <MessageCircle size={14} />
-                  {post.comments.length}
+                  {post.comments?.length}
                 </span>
               </div>
               <span
@@ -396,7 +396,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
         <div
           style={{
             height: "3px",
-            background: `linear-gradient(90deg, ${getTagStyle(post.tags[0]).dot}, ${getTagStyle(post.tags[1] || post.tags[0]).dot})`,
+            background: `linear-gradient(90deg, ${getTagStyle(post.tags?.[0] || 'default').dot}, ${getTagStyle(post.tags?.[1] || post.tags?.[0] || 'default').dot})`,
           }}
         />
 
@@ -476,11 +476,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
 
           {/* Tags */}
           <div style={{ display: "flex", gap: "3px", marginBottom: "6px", flexWrap: "wrap" }}>
-            {post.tags.map(tag => {
+            {post.tags?.map((tag, index) => {
               const s = getTagStyle(tag);
               return (
                 <span
-                  key={tag}
+                  key={`${tag}-${index}`}
                   style={{
                     fontSize: "10px",
                     fontWeight: 600,
@@ -537,7 +537,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
                 }}
               >
                 <MessageCircle size={13} />
-                {post.comments.length}
+                {post.comments?.length}
               </span>
             </div>
             <span style={{ fontSize: "11px", color: "#CBD5E1" }}>
