@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import { User, AuthState } from "../types";
+import type { User, AuthState } from "../types";
 
 type AuthAction =
   | { type: "LOGIN_START" }
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, _password: string) => {
     dispatch({ type: "LOGIN_START" });
     try {
       // Mock API call
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const signup = async (name: string, email: string, _password: string) => {
     dispatch({ type: "LOGIN_START" });
     try {
       // Mock API call

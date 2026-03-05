@@ -44,8 +44,8 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <PenTool className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+            <PenTool className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400" />
+            <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
               BlogSpace
             </span>
           </Link>
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-32 sm:w-48 lg:w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -94,8 +94,8 @@ const Navbar: React.FC = () => {
 
             {/* User Menu */}
             {authState.isAuthenticated ? (
-              <div className="flex items-center space-x-3">
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+              <div className="hidden md:flex items-center space-x-3">
+                <span className="hidden sm:block text-sm text-gray-700 dark:text-gray-300">
                   {authState.user?.name}
                 </span>
                 <div className="relative group">
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-3">
+              <div className="hidden md:flex items-center space-x-2 sm:space-x-3">
                 <Link
                   to="/login"
                   className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -129,7 +129,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                 >
                   Sign Up
                 </Link>
@@ -171,7 +171,7 @@ const Navbar: React.FC = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block text-sm font-medium transition-colors ${
+                  className={`block text-sm font-medium transition-colors py-2 ${
                     location.pathname === item.path
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -182,7 +182,7 @@ const Navbar: React.FC = () => {
               ))}
 
               {/* Mobile Search */}
-              <div className="relative">
+              <div className="relative pt-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
@@ -195,37 +195,37 @@ const Navbar: React.FC = () => {
 
               {/* Mobile Auth */}
               {!authState.isAuthenticated ? (
-                <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <Link
                     to="/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2"
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center"
+                    className="block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center text-sm"
                   >
                     Sign Up
                   </Link>
                 </div>
               ) : (
-                <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="text-sm text-gray-700 dark:text-gray-300 py-2">
                     {authState.user?.name}
                   </div>
                   <Link
                     to="/profile"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="block text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2"
                   >
                     Profile
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center space-x-2"
+                    className="w-full text-left text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center space-x-2 py-2"
                   >
                     <LogOut className="h-4 w-4" />
                     <span>Logout</span>
