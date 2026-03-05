@@ -1,68 +1,74 @@
-import { BlogPost, User, Comment } from '../types';
+import { BlogPost, User, Comment } from "../types";
 
 export const mockUsers: User[] = [
   {
-    id: '1',
-    name: 'Sarah Johnson',
-    email: 'sarah@example.com',
-    avatar: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff',
-    bio: 'Full-stack developer and tech writer',
-    role: 'user',
+    id: "1",
+    name: "Sarah Johnson",
+    email: "sarah@example.com",
+    avatar:
+      "https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff",
+    bio: "Full-stack developer and tech writer",
+    role: "user",
   },
   {
-    id: '2',
-    name: 'Michael Chen',
-    email: 'michael@example.com',
-    avatar: 'https://ui-avatars.com/api/?name=Michael+Chen&background=10b981&color=fff',
-    bio: 'UX designer and creative thinker',
-    role: 'user',
+    id: "2",
+    name: "Michael Chen",
+    email: "michael@example.com",
+    avatar:
+      "https://ui-avatars.com/api/?name=Michael+Chen&background=10b981&color=fff",
+    bio: "UX designer and creative thinker",
+    role: "user",
   },
   {
-    id: '3',
-    name: 'Emily Davis',
-    email: 'emily@example.com',
-    avatar: 'https://ui-avatars.com/api/?name=Emily+Davis&background=f59e0b&color=fff',
-    bio: 'Data scientist and AI enthusiast',
-    role: 'user',
+    id: "3",
+    name: "Emily Davis",
+    email: "emily@example.com",
+    avatar:
+      "https://ui-avatars.com/api/?name=Emily+Davis&background=f59e0b&color=fff",
+    bio: "Data scientist and AI enthusiast",
+    role: "user",
   },
   {
-    id: '4',
-    name: 'Admin User',
-    email: 'admin@example.com',
-    avatar: 'https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff',
-    bio: 'Platform administrator',
-    role: 'admin',
+    id: "4",
+    name: "Admin User",
+    email: "admin@example.com",
+    avatar:
+      "https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff",
+    bio: "Platform administrator",
+    role: "admin",
   },
 ];
 
 export const mockComments: Comment[] = [
   {
-    id: '1',
-    content: 'Great article! This really helped me understand the concept better.',
+    id: "1",
+    content:
+      "Great article! This really helped me understand the concept better.",
     author: mockUsers[1],
-    createdAt: new Date('2024-01-15T10:30:00'),
-    postId: '1',
+    createdAt: new Date("2024-01-15T10:30:00"),
+    postId: "1",
   },
   {
-    id: '2',
-    content: 'I have been using this approach for a while and it works wonders. Thanks for sharing!',
+    id: "2",
+    content:
+      "I have been using this approach for a while and it works wonders. Thanks for sharing!",
     author: mockUsers[2],
-    createdAt: new Date('2024-01-15T14:20:00'),
-    postId: '1',
+    createdAt: new Date("2024-01-15T14:20:00"),
+    postId: "1",
   },
   {
-    id: '3',
-    content: 'Would love to see a follow-up article on advanced techniques.',
+    id: "3",
+    content: "Would love to see a follow-up article on advanced techniques.",
     author: mockUsers[0],
-    createdAt: new Date('2024-01-16T09:15:00'),
-    postId: '2',
+    createdAt: new Date("2024-01-16T09:15:00"),
+    postId: "2",
   },
 ];
 
 export const mockPosts: BlogPost[] = [
   {
-    id: '1',
-    title: 'Building Scalable React Applications: Best Practices and Patterns',
+    id: "1",
+    title: "Building Scalable React Applications: Best Practices and Patterns",
     content: `# Building Scalable React Applications
 
 In this comprehensive guide, we'll explore the best practices and patterns for building scalable React applications that can grow with your needs.
@@ -119,19 +125,21 @@ Key performance techniques:
 ## Conclusion
 
 Building scalable React applications requires careful planning and adherence to best practices. By focusing on component architecture, state management, and performance optimization, you can create applications that grow seamlessly with your user base.`,
-    excerpt: 'Learn the essential patterns and best practices for building React applications that can scale with your growing user base and business requirements.',
+    excerpt:
+      "Learn the essential patterns and best practices for building React applications that can scale with your growing user base and business requirements.",
     author: mockUsers[0],
-    publishedAt: new Date('2024-01-10T10:00:00'),
-    updatedAt: new Date('2024-01-10T10:00:00'),
-    status: 'published',
+    publishedAt: new Date("2024-01-10T10:00:00"),
+    updatedAt: new Date("2024-01-10T10:00:00"),
+    status: "published",
     likes: 245,
     comments: [mockComments[0], mockComments[1]],
-    tags: ['React', 'JavaScript', 'Web Development'],
-    coverImage: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
+    tags: ["React", "JavaScript", "Web Development"],
+    coverImage:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
   },
   {
-    id: '2',
-    title: 'The Future of AI in Web Development: Opportunities and Challenges',
+    id: "2",
+    title: "The Future of AI in Web Development: Opportunities and Challenges",
     content: `# The Future of AI in Web Development
 
 Artificial Intelligence is revolutionizing how we build and interact with web applications. Let's explore the opportunities and challenges ahead.
@@ -173,19 +181,21 @@ While the opportunities are exciting, we must address:
 ## Looking Ahead
 
 The future of web development will be a collaboration between human creativity and AI capabilities.`,
-    excerpt: 'Explore how artificial intelligence is transforming web development, from code generation to user experience, and what it means for developers.',
+    excerpt:
+      "Explore how artificial intelligence is transforming web development, from code generation to user experience, and what it means for developers.",
     author: mockUsers[2],
-    publishedAt: new Date('2024-01-08T14:30:00'),
-    updatedAt: new Date('2024-01-08T14:30:00'),
-    status: 'published',
+    publishedAt: new Date("2024-01-08T14:30:00"),
+    updatedAt: new Date("2024-01-08T14:30:00"),
+    status: "published",
     likes: 189,
     comments: [mockComments[2]],
-    tags: ['AI', 'Machine Learning', 'Future Tech'],
-    coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop',
+    tags: ["AI", "Machine Learning", "Future Tech"],
+    coverImage:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
   },
   {
-    id: '3',
-    title: 'Mastering TypeScript: Advanced Patterns and Techniques',
+    id: "3",
+    title: "Mastering TypeScript: Advanced Patterns and Techniques",
     content: `# Mastering TypeScript
 
 TypeScript has become essential for modern JavaScript development. Let's dive into advanced patterns and techniques.
@@ -222,19 +232,21 @@ type ButtonEvents = EventName<'click' | 'hover'>; // 'onClick' | 'onHover'
 ## Conclusion
 
 Mastering TypeScript opens up new possibilities for type-safe, maintainable code.`,
-    excerpt: 'Deep dive into advanced TypeScript patterns and techniques that will level up your development skills and code quality.',
+    excerpt:
+      "Deep dive into advanced TypeScript patterns and techniques that will level up your development skills and code quality.",
     author: mockUsers[1],
-    publishedAt: new Date('2024-01-05T09:00:00'),
-    updatedAt: new Date('2024-01-05T09:00:00'),
-    status: 'published',
+    publishedAt: new Date("2024-01-05T09:00:00"),
+    updatedAt: new Date("2024-01-05T09:00:00"),
+    status: "published",
     likes: 156,
     comments: [],
-    tags: ['TypeScript', 'JavaScript', 'Programming'],
-    coverImage: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop',
+    tags: ["TypeScript", "JavaScript", "Programming"],
+    coverImage:
+      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
   },
   {
-    id: '4',
-    title: 'Modern CSS Techniques for Responsive Design',
+    id: "4",
+    title: "Modern CSS Techniques for Responsive Design",
     content: `# Modern CSS Techniques
 
 CSS has evolved significantly. Here are modern techniques for responsive design.
@@ -258,19 +270,21 @@ Modern layout systems:
 - Mobile-first approach
 - Performance optimization
 - Accessibility considerations`,
-    excerpt: 'Explore modern CSS techniques including Grid, Flexbox, and new features that make responsive design easier and more powerful.',
+    excerpt:
+      "Explore modern CSS techniques including Grid, Flexbox, and new features that make responsive design easier and more powerful.",
     author: mockUsers[0],
-    publishedAt: new Date('2024-01-03T16:00:00'),
-    updatedAt: new Date('2024-01-03T16:00:00'),
-    status: 'published',
+    publishedAt: new Date("2024-01-03T16:00:00"),
+    updatedAt: new Date("2024-01-03T16:00:00"),
+    status: "published",
     likes: 98,
     comments: [],
-    tags: ['CSS', 'Design', 'Frontend'],
-    coverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop',
+    tags: ["CSS", "Design", "Frontend"],
+    coverImage:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
   },
   {
-    id: '5',
-    title: 'Introduction to Web3 and Blockchain Development',
+    id: "5",
+    title: "Introduction to Web3 and Blockchain Development",
     content: `# Web3 and Blockchain
 
 Web3 represents the next evolution of the internet. Let's explore the fundamentals.
@@ -299,15 +313,17 @@ Web3 is a decentralized internet built on blockchain technology.
 - User experience
 - Regulatory concerns
 - Technical complexity`,
-    excerpt: 'An introduction to Web3 and blockchain development, covering key concepts, tools, and how to get started building decentralized applications.',
+    excerpt:
+      "An introduction to Web3 and blockchain development, covering key concepts, tools, and how to get started building decentralized applications.",
     author: mockUsers[2],
-    publishedAt: new Date('2024-01-01T11:00:00'),
-    updatedAt: new Date('2024-01-01T11:00:00'),
-    status: 'published',
+    publishedAt: new Date("2024-01-01T11:00:00"),
+    updatedAt: new Date("2024-01-01T11:00:00"),
+    status: "published",
     likes: 134,
     comments: [],
-    tags: ['Web3', 'Blockchain', 'Cryptocurrency'],
-    coverImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop',
+    tags: ["Web3", "Blockchain", "Cryptocurrency"],
+    coverImage:
+      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
   },
 ];
 

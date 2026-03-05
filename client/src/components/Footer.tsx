@@ -1,38 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { PenTool, Twitter, Github, Linkedin, Mail } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { PenTool, Twitter, Github, Linkedin, Mail } from "lucide-react";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     product: [
-      { name: 'Features', href: '#' },
-      { name: 'Pricing', href: '#' },
-      { name: 'API', href: '#' },
+      { name: "Features", href: "#" },
+      { name: "Pricing", href: "#" },
+      { name: "API", href: "#" },
     ],
     company: [
-      { name: 'About', href: '#' },
-      { name: 'Blog', href: '#' },
-      { name: 'Careers', href: '#' },
+      { name: "About", href: "#" },
+      { name: "Blog", href: "#" },
+      { name: "Careers", href: "#" },
     ],
     resources: [
-      { name: 'Documentation', href: '#' },
-      { name: 'Help Center', href: '#' },
-      { name: 'Community', href: '#' },
+      { name: "Documentation", href: "#" },
+      { name: "Help Center", href: "#" },
+      { name: "Community", href: "#" },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
+      { name: "Privacy Policy", href: "#" },
+      { name: "Terms of Service", href: "#" },
+      { name: "Cookie Policy", href: "#" },
     ],
   };
 
   const socialLinks = [
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: '#', label: 'Email' },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Github, href: "#", label: "GitHub" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Mail, href: "#", label: "Email" },
   ];
 
   return (
@@ -43,10 +43,13 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <PenTool className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <span className="text-xl font-bold text-gray-900 dark:text-white">BlogSpace</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">
+                BlogSpace
+              </span>
             </Link>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
-              Share your ideas with the world. A modern blogging platform for writers, thinkers, and creators.
+              Share your ideas with the world. A modern blogging platform for
+              writers, thinkers, and creators.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -142,13 +145,22 @@ const Footer: React.FC = () => {
               © {currentYear} BlogSpace. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">
+              <a
+                href="#"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors"
+              >
                 Status
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">
+              <a
+                href="#"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors"
+              >
                 Security
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">
+              <a
+                href="#"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors"
+              >
                 Privacy
               </a>
             </div>

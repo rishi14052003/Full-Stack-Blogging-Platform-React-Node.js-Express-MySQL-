@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Moon, Sun, Search, Menu, X, PenTool, User, LogOut } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '../contexts/ThemeContext';
+import React from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  Moon,
+  Sun,
+  Search,
+  Menu,
+  X,
+  PenTool,
+  User,
+  LogOut,
+} from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Navbar: React.FC = () => {
   const { state: authState, logout } = useAuth();
@@ -10,21 +19,23 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
     setIsMenuOpen(false);
   };
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Explore', path: '/explore' },
-    ...(authState.isAuthenticated ? [
-      { name: 'Write', path: '/write' },
-      { name: 'Dashboard', path: '/dashboard' },
-    ] : []),
+    { name: "Home", path: "/" },
+    { name: "Explore", path: "/explore" },
+    ...(authState.isAuthenticated
+      ? [
+          { name: "Write", path: "/write" },
+          { name: "Dashboard", path: "/dashboard" },
+        ]
+      : []),
   ];
 
   return (
@@ -34,7 +45,9 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <PenTool className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">BlogSpace</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              BlogSpace
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -45,8 +58,8 @@ const Navbar: React.FC = () => {
                 to={item.path}
                 className={`text-sm font-medium transition-colors ${
                   location.pathname === item.path
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
               >
                 {item.name}
@@ -160,14 +173,14 @@ const Navbar: React.FC = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className={`block text-sm font-medium transition-colors ${
                     location.pathname === item.path
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              
+
               {/* Mobile Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />

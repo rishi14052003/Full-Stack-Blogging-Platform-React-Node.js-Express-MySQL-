@@ -1,24 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, MessageCircle, Clock, User } from 'lucide-react';
-import { BlogPost } from '../types';
-import { formatDistanceToNow } from 'date-fns';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Heart, MessageCircle, Clock, User } from "lucide-react";
+import { BlogPost } from "../types";
+import { formatDistanceToNow } from "date-fns";
 
 interface BlogCardProps {
   post: BlogPost;
-  variant?: 'default' | 'featured' | 'compact';
+  variant?: "default" | "featured" | "compact";
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ post, variant = 'default' }) => {
-  const timeAgo = formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true });
+const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
+  const timeAgo = formatDistanceToNow(new Date(post.publishedAt), {
+    addSuffix: true,
+  });
 
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <Link to={`/post/${post.id}`} className="block group">
         <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md">
           <div className="flex items-start space-x-3">
             <img
-              src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`}
+              src={
+                post.author.avatar ||
+                `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`
+              }
               alt={post.author.name}
               className="w-10 h-10 rounded-full flex-shrink-0"
             />
@@ -36,7 +41,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = 'default' }) => {
     );
   }
 
-  if (variant === 'featured') {
+  if (variant === "featured") {
     return (
       <Link to={`/post/${post.id}`} className="block group">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -52,13 +57,20 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = 'default' }) => {
           <div className="p-6">
             <div className="flex items-center space-x-3 mb-3">
               <img
-                src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`}
+                src={
+                  post.author.avatar ||
+                  `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`
+                }
                 alt={post.author.name}
                 className="w-8 h-8 rounded-full"
               />
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">{post.author.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{timeAgo}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  {post.author.name}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {timeAgo}
+                </p>
               </div>
             </div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -110,12 +122,17 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = 'default' }) => {
         <div className="p-5">
           <div className="flex items-center space-x-3 mb-3">
             <img
-              src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`}
+              src={
+                post.author.avatar ||
+                `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`
+              }
               alt={post.author.name}
               className="w-8 h-8 rounded-full"
             />
             <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">{post.author.name}</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-white">
+                {post.author.name}
+              </p>
               <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center space-x-1">
                 <Clock className="h-3 w-3" />
                 <span>{timeAgo}</span>
