@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -14,6 +14,10 @@ const LoginPage: React.FC = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the redirect path from location state or default to dashboard
+  const from = (location.state as any)?.from?.pathname || '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +26,7 @@ const LoginPage: React.FC = () => {
     try {
       await login(email, password);
       setIsSuccess(true);
-      setTimeout(() => navigate('/'), 1200);
+      setTimeout(() => navigate(from, { replace: true }), 1200);
     } catch (err: any) {
       setError(err.message || 'Invalid email or password');
     } finally {
@@ -150,20 +154,25 @@ const LoginPage: React.FC = () => {
         .dark .field-input::placeholder {
           color: #374151;
         }
-        .field-icon {
+        .field-icon-btn {
           position: absolute;
-          right: 14px;
+          right: 12px;
           top: 50%;
           transform: translateY(-50%);
-          color: #6b7280;
+          color: #4b5563;
+          background: none;
+          border: none;
           cursor: pointer;
+          padding: 2px;
           transition: color 0.2s;
+          display: flex;
+          align-items: center;
         }
-        .field-icon:hover { color: #9ca3af; }
-        .dark .field-icon {
+        .field-icon-btn:hover { color: #9ca3af; }
+        .dark .field-icon-btn {
           color: #4b5563;
         }
-        .dark .field-icon:hover { color: #9ca3af; }
+        .dark .field-icon-btn:hover { color: #9ca3af; }
 
         .submit-btn {
           width: 100%;
@@ -420,8 +429,8 @@ const LoginPage: React.FC = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                 />
-                <button type="button" className="field-icon text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                <button type="button" className="field-icon-btn text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
             </div>

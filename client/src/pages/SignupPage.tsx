@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -18,6 +18,10 @@ const SignupPage: React.FC = () => {
 
   const { signup } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the redirect path from location state or default to dashboard
+  const from = (location.state as any)?.from?.pathname || '/dashboard';
 
   const checkStrength = (p: string): 'weak' | 'medium' | 'strong' => {
     if (p.length < 6) return 'weak';
@@ -41,7 +45,7 @@ const SignupPage: React.FC = () => {
     try {
       await signup(username, email, password);
       setIsSuccess(true);
-      setTimeout(() => navigate('/'), 1500);
+      setTimeout(() => navigate(from, { replace: true }), 1500);
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
     } finally {

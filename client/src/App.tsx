@@ -6,6 +6,10 @@ import BlogFeedPage from './pages/BlogFeedPage';
 import BlogPostPage from './pages/BlogPostPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
+import CreateBlogPage from './pages/CreateBlogPage';
+import EditBlogPage from './pages/EditBlogPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './App.css';
@@ -24,6 +28,21 @@ function App() {
                 <Route path="/post/:id" element={<BlogPostPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
+                <Route path="/dashboard" element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                } />
+                <Route path="/create" element={
+                  <ProtectedRoute>
+                    <CreateBlogPage />
+                  </ProtectedRoute>
+                } />
+                <Route path="/edit/:id" element={
+                  <ProtectedRoute>
+                    <EditBlogPage />
+                  </ProtectedRoute>
+                } />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </main>
