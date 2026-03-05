@@ -5,6 +5,12 @@ class User {
   static async create(userData) {
     const { username, email, password, avatar = '', bio = '' } = userData;
     
+    // Check if user already exists before creating
+    const existingUser = await this.findByEmail(email) || await this.findByUsername(username);
+    if (existingUser) {
+      throw new Error('User with this email or username already exists');
+    }
+    
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -19,7 +25,7 @@ class User {
       return await this.findById(result.insertId);
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
-        throw new Error('User already exists');
+        throw new Error('User with this email or username already exists');
       }
       throw error;
     }

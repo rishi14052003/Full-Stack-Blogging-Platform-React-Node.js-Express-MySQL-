@@ -1,10 +1,10 @@
 export interface User {
   id: string;
-  name: string;
+  username: string;
   email: string;
   avatar?: string;
   bio?: string;
-  role: 'user' | 'admin';
+  is_admin: boolean;
 }
 
 export interface BlogPost {
@@ -13,23 +13,22 @@ export interface BlogPost {
   content: string;
   excerpt: string;
   author: User;
-  publishedAt: Date;
-  updatedAt: Date;
-  status: 'draft' | 'published' | 'scheduled';
-  scheduledAt?: Date;
-  likes: number;
-  comments: Comment[];
-  tags: string[];
-  coverImage?: string;
+  created_at: Date;
+  updated_at: Date;
+  status: 'draft' | 'published' | 'archived';
+  featured_image?: string;
+  likes?: number;
+  comments?: Comment[];
+  tags?: string[];
 }
 
 export interface Comment {
   id: string;
   content: string;
   author: User;
-  createdAt: Date;
-  postId: string;
-  parentId?: string;
+  created_at: Date;
+  post_id: string;
+  parent_id?: string;
   replies?: Comment[];
 }
 

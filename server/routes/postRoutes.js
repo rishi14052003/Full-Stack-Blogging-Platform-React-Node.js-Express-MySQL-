@@ -45,4 +45,9 @@ router.put('/:id', [
 // @access  Private
 router.delete('/:id', postController.deletePost);
 
+// @route   GET /api/posts/scheduled
+// @desc    Get scheduled posts
+// @access  Private
+router.get('/scheduled', postController.getScheduledPosts);
+
 module.exports = router;

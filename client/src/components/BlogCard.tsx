@@ -25,10 +25,10 @@ const getTagStyle = (tag: string) =>
 
 const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes);
+  const [likeCount, setLikeCount] = useState(post.likes || 0);
   const [saved, setSaved] = useState(false);
 
-  const timeAgo = formatDistanceToNow(new Date(post.publishedAt), {
+  const timeAgo = formatDistanceToNow(new Date(post.created_at), {
     addSuffix: true,
   });
 
@@ -86,9 +86,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
           <img
             src={
               post.author.avatar ||
-              `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`
+              `https://ui-avatars.com/api/?username=${post.author.username}&background=3b82f6&color=fff`
             }
-            alt={post.author.name}
+            alt={post.author.username}
             style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0, objectFit: "cover" }}
           />
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -109,7 +109,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
               {post.title}
             </h3>
             <p style={{ fontSize: "11px", color: "#94A3B8", marginBottom: "6px" }}>
-              {post.author.name} · {timeAgo}
+              {post.author.username} · {timeAgo}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               {post.tags.slice(0, 1).map(tag => {
@@ -172,10 +172,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
           }}
         >
           {/* Cover image */}
-          {post.coverImage && (
+          {post.featured_image && (
             <div style={{ height: "100px", overflow: "hidden" }}>
               <img
-                src={post.coverImage}
+                src={post.featured_image}
                 alt={post.title}
                 style={{
                   width: "100%",
@@ -251,12 +251,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
               <img
                 src={post.author.avatar}
-                alt={post.author.name}
+                alt={post.author.username}
                 style={{ width: 22, height: 22, borderRadius: "50%", border: "2px solid #F1F5F9" }}
               />
               <div>
                 <p style={{ fontSize: "12px", fontWeight: 600, color: "#0F172A", lineHeight: 1.2 }}>
-                  {post.author.name}
+                  {post.author.username}
                 </p>
                 <p style={{ fontSize: "11px", color: "#94A3B8" }}>{timeAgo}</p>
               </div>
@@ -405,7 +405,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
             <img
               src={post.author.avatar}
-              alt={post.author.name}
+              alt={post.author.username}
               style={{
                 width: 24,
                 height: 24,
@@ -416,7 +416,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, variant = "default" }) => {
             />
             <div>
               <p style={{ fontSize: "12px", fontWeight: 600, color: "#334155", lineHeight: 1.2 }}>
-                {post.author.name}
+                {post.author.username}
               </p>
               <p style={{ fontSize: "11px", color: "#94A3B8", display: "flex", alignItems: "center", gap: "3px" }}>
                 <Clock size={10} /> {timeAgo}

@@ -51,38 +51,70 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = async (email: string, _password: string) => {
+  const login = async (email: string, password: string) => {
     dispatch({ type: "LOGIN_START" });
     try {
-      // Mock API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const mockUser: User = {
-        id: "1",
-        name: "John Doe",
-        email,
-        role: "user",
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      const user: User = {
+        id: data.id.toString(),
+        username: data.username,
+        email: data.email,
+        avatar: data.avatar,
+        bio: data.bio,
+        is_admin: data.is_admin,
       };
-      dispatch({ type: "LOGIN_SUCCESS", payload: mockUser });
-      localStorage.setItem("user", JSON.stringify(mockUser));
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: user });
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", data.token);
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       throw error;
     }
   };
 
-  const signup = async (name: string, email: string, _password: string) => {
+  const signup = async (_username: string, email: string, password: string) => {
     dispatch({ type: "LOGIN_START" });
     try {
-      // Mock API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const mockUser: User = {
-        id: "1",
-        name,
-        email,
-        role: "user",
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: _username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      const user: User = {
+        id: data.id.toString(),
+        username: data.username,
+        email: data.email,
+        avatar: data.avatar,
+        bio: data.bio,
+        is_admin: data.is_admin,
       };
-      dispatch({ type: "LOGIN_SUCCESS", payload: mockUser });
-      localStorage.setItem("user", JSON.stringify(mockUser));
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: user });
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", data.token);
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       throw error;
@@ -92,6 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {

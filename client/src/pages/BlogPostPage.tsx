@@ -70,8 +70,8 @@ const BlogPostPage: React.FC = () => {
       id: Date.now().toString(),
       content: newComment,
       author: mockUsers[0], // Current user
-      createdAt: new Date(),
-      postId: post.id,
+      created_at: new Date(),
+      post_id: post.id,
     };
 
     setComments([...comments, comment]);
@@ -79,7 +79,7 @@ const BlogPostPage: React.FC = () => {
   };
 
   const relatedPosts = mockPosts
-    .filter(p => p.id !== post.id && p.tags.some(tag => post.tags.includes(tag)))
+    .filter(p => p.id !== post.id && p.tags?.some(tag => post.tags?.includes(tag)))
     .slice(0, 3);
 
   return (
@@ -99,7 +99,7 @@ const BlogPostPage: React.FC = () => {
           <header className="mb-6 sm:mb-8">
             {/* Tags */}
             <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
-              {post.tags.map((tag) => (
+              {post.tags?.map((tag) => (
                 <span
                   key={tag}
                   className="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs sm:text-sm rounded-full"
@@ -117,16 +117,16 @@ const BlogPostPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-4">
               <div className="flex items-center space-x-3">
                 <img
-                  src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.name}&background=3b82f6&color=fff`}
-                  alt={post.author.name}
+                  src={post.author.avatar || `https://ui-avatars.com/api/?username=${post.author.username}&background=3b82f6&color=fff`}
+                  alt={post.author.username}
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
                 />
                 <div>
                   <div className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">
-                    {post.author.name}
+                    {post.author.username}
                   </div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                    {formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}
+                    {formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}
                   </div>
                 </div>
               </div>
@@ -172,10 +172,10 @@ const BlogPostPage: React.FC = () => {
           </header>
 
           {/* Cover Image */}
-          {post.coverImage && (
+          {post.featured_image && (
             <div className="mb-6 sm:mb-8">
               <img
-                src={post.coverImage}
+                src={post.featured_image}
                 alt={post.title}
                 className="w-full h-48 sm:h-64 lg:h-96 object-cover rounded-lg"
               />
@@ -228,7 +228,7 @@ const BlogPostPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
               <img
                 src={mockUsers[0].avatar}
-                alt={mockUsers[0].name}
+                alt={mockUsers[0].username}
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex-shrink-0"
               />
               <div className="flex-1">
@@ -258,17 +258,17 @@ const BlogPostPage: React.FC = () => {
             {comments.map((comment) => (
               <div key={comment.id} className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <img
-                  src={comment.author.avatar || `https://ui-avatars.com/api/?name=${comment.author.name}&background=3b82f6&color=fff`}
-                  alt={comment.author.name}
+                  src={comment.author.avatar || `https://ui-avatars.com/api/?username=${comment.author.username}&background=3b82f6&color=fff`}
+                  alt={comment.author.username}
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex-shrink-0"
                 />
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
                     <span className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">
-                      {comment.author.name}
+                      {comment.author.username}
                     </span>
                     <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                      {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                      {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
                     </span>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
@@ -307,7 +307,7 @@ const BlogPostPage: React.FC = () => {
                       {relatedPost.excerpt}
                     </p>
                     <div className="mt-2 sm:mt-3 text-xs text-gray-500 dark:text-gray-400">
-                      {formatDistanceToNow(new Date(relatedPost.publishedAt), { addSuffix: true })}
+                      {formatDistanceToNow(new Date(relatedPost.created_at), { addSuffix: true })}
                     </div>
                   </div>
                 </Link>

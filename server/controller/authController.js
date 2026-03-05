@@ -15,9 +15,14 @@ const register = async (req, res) => {
     const { username, email, password } = req.body;
 
     // Check if user exists
-    const existingUser = await User.findByEmail(email) || await User.findByUsername(username);
+    const existingUser = await User.findByEmail(email);
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'User with this email already exists' });
+    }
+    
+    const existingUsername = await User.findByUsername(username);
+    if (existingUsername) {
+      return res.status(400).json({ message: 'Username is already taken' });
     }
 
     // Create user
@@ -86,7 +91,17 @@ const login = async (req, res) => {
 const getProfile = async (req, res) => {
   try {
     // This would require auth middleware to get user ID
-    res.status(501).json({ message: 'Not implemented yet - requires auth middleware' });
+    const userId = req.user.id; // This would come from auth middleware
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Remove sensitive data from response
+    const { password, ...userWithoutPassword } = user;
+    
+    res.json(userWithoutPassword);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

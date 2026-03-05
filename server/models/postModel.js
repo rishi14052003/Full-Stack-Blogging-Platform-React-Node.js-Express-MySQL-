@@ -2,15 +2,15 @@ const { pool } = require('../config/db');
 
 class Post {
   static async create(postData) {
-    const { title, content, excerpt, featured_image, author_id, status = 'draft' } = postData;
+    const { title, content, excerpt, featured_image, author_id, status = 'draft', scheduled_at } = postData;
     
     const query = `
-      INSERT INTO posts (title, content, excerpt, featured_image, author_id, status)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO posts (title, content, excerpt, featured_image, author_id, status, scheduled_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
     
     try {
-      const [result] = await pool.execute(query, [title, content, excerpt, featured_image, author_id, status]);
+      const [result] = await pool.execute(query, [title, content, excerpt, featured_image, author_id, status, scheduled_at]);
       return await this.findById(result.insertId);
     } catch (error) {
       throw error;

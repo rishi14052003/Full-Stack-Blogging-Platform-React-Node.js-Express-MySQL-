@@ -11,7 +11,7 @@ const createPost = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, content, excerpt, featured_image, status = 'draft' } = req.body;
+    const { title, content, excerpt, featured_image, status = 'draft', scheduled_at } = req.body;
     const author_id = req.user.id; // This would come from auth middleware
 
     const post = await Post.create({
@@ -20,7 +20,8 @@ const createPost = async (req, res) => {
       excerpt,
       featured_image,
       author_id,
-      status
+      status,
+      scheduled_at
     });
 
     res.status(201).json(post);
@@ -189,11 +190,48 @@ const getMyPosts = async (req, res) => {
   }
 };
 
+// @desc    Get scheduled posts
+// @route   GET /api/posts/scheduled
+// @access  Private
+const getScheduledPosts = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+    const userId = req.user.id; // This would come from auth middleware
+
+    const posts = await Post.findAll({
+      status: 'scheduled',
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      author_id: userId
+    });
+
+    const total = await Post.count({ 
+      status: 'scheduled', 
+      author_id: userId 
+    });
+
+    res.json({
+      posts,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPostById,
   updatePost,
   deletePost,
-  getMyPosts
+  getMyPosts,
+  getScheduledPosts
 };
